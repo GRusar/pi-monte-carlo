@@ -19,11 +19,11 @@ dependencies:
 - base >= 4.7 && < 5
 - random
 
-#- mtl
-#- mwc-random
-#- parallel
-#- primitive
-#- vector
+- mtl
+- mwc-random
+- parallel
+- primitive
+- vector
 
 ghc-options:
 - -Wall
