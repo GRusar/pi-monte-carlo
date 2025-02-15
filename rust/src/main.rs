@@ -12,8 +12,6 @@ fn main() {
       x = rng.random_range(0.0..1.0);
       y = rng.random_range(0.0..1.0);
 
-      //x = rand::random::<f64>();
-      //y = rand::random::<f64>();
       if (x * x + y * y).sqrt() <= 1.0 {
         in_sector += 1;
       }
