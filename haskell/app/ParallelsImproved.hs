@@ -5,7 +5,6 @@ module ParallelsImproved (main) where
 import Control.Monad
 import System.Random.MWC (createSystemRandom, uniform, GenIO)
 import qualified Data.Vector.Unboxed as V
-import System.Random.Stateful (Uniform(..))
 import Control.Parallel.Strategies (parListChunk, using, rdeepseq)
 
 chunkSize :: Int
@@ -16,12 +15,12 @@ main count = do
     let numSamples = round count :: Int
     gen <- createSystemRandom  -- Создаем генератор один раз
     insideCount <- countInsideCircle gen numSamples
-    print (4 * fromIntegral insideCount / fromIntegral numSamples)
+    print ((4 :: Double) * fromIntegral insideCount / fromIntegral numSamples)
 
 countInsideCircle :: GenIO -> Int -> IO Int
 countInsideCircle gen n = do
     let chunks = n `div` chunkSize
-    results <- forM [1 .. chunks] $ \_ -> countChunk gen chunkSize
+    results <- replicateM chunks (countChunk gen chunkSize)
     return $ parSum results  -- Параллельная сумма
 
 countChunk :: GenIO -> Int -> IO Int
@@ -32,4 +31,4 @@ countChunk gen n = do
     return $ V.sum inside
 
 parSum :: [Int] -> Int
-parSum xs = sum (xs `using` parListChunk 10 rdeepseq)
+parSum xs = sum (xs `using` parListChunk chunkSize rdeepseq)
