@@ -3,7 +3,7 @@
 #include <cmath>
 
 int main() {
-    const long count = 1'000'000'000;
+    const long count = 100'000'000;
     int inSector = 0;
 
     // Инициализация 64-битного генератора случайных чисел
