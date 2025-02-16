@@ -1,13 +1,15 @@
 {-# LANGUAGE NumericUnderscores #-}
 
-module Parallels (main) where
+module ParallelsImproved (main) where
 
 import Control.Monad
 import System.Random.MWC (createSystemRandom, uniform, GenIO)
 import qualified Data.Vector.Unboxed as V
+import System.Random.Stateful (Uniform(..))
+import Control.Parallel.Strategies (parListChunk, using, rdeepseq)
 
 chunkSize :: Int
-chunkSize = 10_000_000  -- Оптимальный размер чанка
+chunkSize = 1_000_000  -- Оптимальный размер чанка
 
 main :: Double -> IO ()
 main count = do
@@ -20,12 +22,14 @@ countInsideCircle :: GenIO -> Int -> IO Int
 countInsideCircle gen n = do
     let chunks = n `div` chunkSize
     results <- forM [1 .. chunks] $ \_ -> countChunk gen chunkSize
-    return $ sum results  -- Чистая сумма всех результатов
+    return $ parSum results  -- Параллельная сумма
 
 countChunk :: GenIO -> Int -> IO Int
 countChunk gen n = do
-    -- Генерация случайных чисел
     xs <- V.replicateM n (uniform gen :: IO Double)
     ys <- V.replicateM n (uniform gen :: IO Double)
-    let inside = V.zipWith (\x y -> if sqrt(x*x + y*y) <= 1.0 then 1 else 0) xs ys
-    return $ V.sum inside  -- Оптимизированная параллельная сумма
+    let inside = V.zipWith (\x y -> if x*x + y*y <= 1.0 then 1 else 0) xs ys
+    return $ V.sum inside
+
+parSum :: [Int] -> Int
+parSum xs = sum (xs `using` parListChunk 10 rdeepseq)

@@ -44,6 +44,7 @@ executable find-pi-exe
   other-modules:
       Old
       Parallels
+      ParallelsImproved
       Paths_find_pi
   autogen-modules:
       Paths_find_pi
