@@ -33,5 +33,7 @@
 | **Haskell (Parallel)**    | 3.14155536    | 3.000       | 78%   | `Parallels.hs`               |
 | **Haskell (Old)**         | 3.141328      | 9.129       | 104%  | `Old.hs`                     |
 | **Ruby**                  | 3.1417838     | 11.280      | 99%   | `estimate_pi.rb`             |
+| **Swift (Fast)**          | 3.141369      | 5.396       | 99%   | `estimate_pi_fast`           |
+
 
 ---
