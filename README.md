@@ -35,6 +35,7 @@
 | **Swift (Fast)**          | 3.141369      | 5.396       | 99%   | `estimate_pi_fast`           |
 | **Ruby**                  | 3.1417838     | 11.280      | 99%   | `estimate_pi.rb`             |
 | **Haskell (Old)**         | 3.141328      | 9.129       | 104%  | `Old.hs`                     |
-| **Python 3.13**           | 3.14154648    | 29.848      | 99%   | `estimate_pi.py`             |
+| **Python 3.13 (random)**  | 3.14191048    | 18.161      | 99%   | `estimate_pi_random.py`      |
+| **Python 3.13 (uniform)** | 3.141611      | 29.656      | 99%   | `estimate_pi_uniform.py`     |
 
 ---

@@ -18,6 +18,3 @@ for i in range(count):
 P_in_sector = in_sector / count
 
 print("Оценка pi = ", 4 * P_in_sector)
-
-
-
